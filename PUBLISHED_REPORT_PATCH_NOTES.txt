@@ -1,0 +1,96 @@
+Published Report Patch Notes
+Battery Data Visualizer
+
+Overview
+This document summarizes the progress made on the published report feature added to the MATLAB Battery Data Visualizer. The goal of this update was to let users generate a clean, structured report directly from the GUI instead of only viewing plots on screen.
+
+Current Version Summary
+The application now supports report export through MATLAB's publish function. A user can choose a dataset, select a time range in the GUI, and generate an HTML report that contains labeled sections, summary statistics, and battery plots for the selected interval.
+
+Patch Notes
+
+1. MATLAB Publish Integration
+- Added a publish-based export workflow to the project.
+- The report is generated as an HTML document.
+- MATLAB publishing markup is used to create clearly separated report sections.
+- The feature converts GUI analysis into a shareable and presentation-ready report.
+
+2. Export Data Button in the GUI
+- Added an Export Data button to the main interactive interface.
+- The button becomes available when valid battery data is loaded.
+- The export process begins directly from the GUI so the user does not need to run extra scripts manually.
+- Added a save dialog so the user can choose the report file name and location.
+
+3. Report Content Structure
+- The generated report includes a report title and a summary section.
+- Added labeled sections for each major battery plot.
+- The report currently includes:
+  SOC vs Time
+  Voltage vs Time
+  Current vs Time
+  Temperature vs Time
+- Each section includes the generated figure and short explanatory summary text.
+
+4. Time-Range Aware Reporting
+- The report is based on the currently selected start time and end time from the GUI.
+- Only the selected interval is summarized in the report.
+- This allows the user to export a focused analysis instead of always exporting the full dataset.
+
+5. Shared Summary Calculations
+- Added a separate helper function to calculate summary metrics for the selected data range.
+- This helper is reused by both the GUI dashboard and the exported report.
+- Metrics included in the published report include:
+  Displayed range
+  Number of samples
+  Minimum voltage
+  Maximum voltage
+  Average voltage
+  Minimum current
+  Maximum current
+  Average current
+  Minimum temperature
+  Maximum temperature
+  Average temperature
+  SOC at the start of the interval
+  SOC at the end of the interval
+  SOC change over the selected range
+
+6. Reuse of Existing Plotting Logic
+- The published report reuses the existing battery_visualization.m plotting function.
+- This keeps the GUI and report plots visually consistent.
+- It also avoids duplicated plotting code and makes the feature easier to maintain.
+
+7. Report Generation Workflow
+- Added a dedicated export helper file to manage report creation.
+- The helper creates a temporary MATLAB script for publishing.
+- The script loads the selected data, inserts section headers, prints summary text, and generates plots.
+- The helper then calls publish and saves the final HTML output.
+
+8. Reliability and Verification
+- Added error handling around the export process to catch failures during report generation.
+- Added status updates in the GUI so the user knows when report generation starts or fails.
+- Verified the publish workflow by running MATLAB in batch mode using the sample battery dataset.
+- Confirmed that the HTML report is created successfully after export.
+
+Files Involved in the Published Report Feature
+- battery_app_gui.m: Adds the Export Data button and export callback
+- export_battery_report.m: Handles report generation using MATLAB publish
+- summarize_battery_data.m: Calculates shared report and dashboard metrics
+- battery_visualization.m: Generates the plots used in the published report
+- sample_battery_data.csv: Used to verify report generation during testing
+
+Progress Report Summary
+The published report feature is now functional and integrated into the GUI. Users can load or generate data, choose a time range, and export a structured HTML report directly from the application. This update extends the project from an interactive visualization tool into a tool that also supports formal documentation and analysis reporting.
+
+Major Accomplishments
+- Added report export directly into the MATLAB GUI.
+- Integrated MATLAB publish into the workflow.
+- Created labeled report sections for all major battery plots.
+- Added shared metric calculations so GUI values and report values stay consistent.
+- Verified that report generation works with the sample dataset.
+
+What This Means for the Project
+This update makes the project more useful for class presentations, technical documentation, and battery analysis workflows. Instead of only showing the results during runtime, the application can now save the analysis into a structured report that can be reviewed or shared later.
+
+Suggested One-Paragraph Progress Report
+Today I added a published report feature to the Battery Data Visualizer using MATLAB's publish function. I connected the feature to the GUI through a new Export Data button, allowing the user to generate an HTML report directly from the application. The report uses the currently selected time range and includes summary statistics, labeled plot sections, and written descriptions for SOC, voltage, current, and temperature. To keep the implementation organized, I separated the export workflow, summary calculations, and plotting logic into different files and verified the feature using the sample dataset.

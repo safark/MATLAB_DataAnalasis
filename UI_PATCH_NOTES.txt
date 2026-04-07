@@ -1,0 +1,97 @@
+Interactive UI Patch Notes
+Battery Data Visualizer
+
+Overview
+This document summarizes the progress made on the interactive user interface for the MATLAB Battery Data Visualizer. The updates focus on improving usability, interactivity, data loading, filtering, visualization, and report generation.
+
+Current Version Summary
+The UI has progressed from a simple plotting interface into a more complete interactive dashboard. Users can now load or generate data, choose which signal to view, filter by time range, inspect summary statistics, and export a formatted report directly from the GUI.
+
+Patch Notes
+
+1. Initial Interactive Plotting Support
+- Added a dedicated MATLAB GUI window using uifigure.
+- Added a main plotting area using uiaxes.
+- Connected the UI to the shared plotting function so the graph updates based on user input.
+- Enabled support for four battery signals:
+  SOC vs Time
+  Voltage vs Time
+  Current vs Time
+  Temperature vs Time
+
+2. Plot Selection Controls
+- Added a dropdown menu for choosing which battery variable to display.
+- Linked the dropdown to automatic plot updates through a callback function.
+- Improved the interface so users can switch between plots without restarting the application.
+
+3. Time Range Filtering
+- Added numeric input fields for start time and end time.
+- Allowed the user to focus on a selected portion of the dataset instead of always viewing the full file.
+- Added validation logic so reversed time inputs are corrected automatically.
+- Added a Full Range button to quickly restore the complete dataset view.
+
+4. Data Input Features
+- Added a Load CSV button so users can import real battery datasets.
+- Added file selection support using MATLAB's built-in file picker.
+- Added normalization logic so imported files can be mapped to a standard internal table format.
+- Added a Generate Synthetic Data button for testing the interface without needing an external file.
+
+5. Summary Dashboard Panel
+- Added a side panel called Battery Summary.
+- The panel now updates dynamically based on the selected time range.
+- Summary values currently shown in the UI include:
+  Displayed range
+  Minimum voltage
+  Maximum voltage
+  Maximum temperature
+  Average current
+  SOC at the start of the selected interval
+  SOC at the end of the selected interval
+
+6. Export Data Feature
+- Added a new Export Data button to the GUI.
+- The export button is enabled when valid data is available.
+- Users can save a report directly from the interface.
+- The export uses MATLAB publish to create a formatted HTML report.
+- The generated report includes:
+  A document title
+  A summary section
+  Headings for each plot
+  Labeled figures
+  Short written summaries of the selected battery behavior
+
+7. Internal Refactoring for UI Reliability
+- Added a shared summary helper function so both the GUI and exported report use the same metric calculations.
+- Improved separation of responsibilities between:
+  User interface logic
+  Data summarization
+  Report generation
+  Plot rendering
+- This makes the project easier to maintain and explain during development reviews.
+
+8. User Experience Improvements
+- Added status text at the bottom of the window to communicate actions such as loading data, generating data, displaying plots, or exporting reports.
+- Added default sample data loading when available so the interface is usable immediately.
+- Added error handling for CSV loading, synthetic data generation, and export failures.
+- Improved the UI workflow so the application feels more like a complete tool rather than a basic prototype.
+
+Progress Report Summary
+The interactive UI is now in a functional and presentable state. It supports the main workflow of battery data analysis:
+1. Load or generate data.
+2. Select a plot.
+3. Filter the time range.
+4. Review summary metrics.
+5. Export the results as a report.
+
+Major Accomplishments
+- Built an interactive GUI for battery data analysis.
+- Added multiple battery visualization modes.
+- Added real-time user controls for filtering and plot selection.
+- Added a live summary panel tied to the selected data range.
+- Added report export support directly from the GUI.
+
+What This Means for the Project
+These updates move the project beyond simple visualization and toward a user-friendly analysis application. The interface now supports both interactive exploration and report generation, which makes it more valuable for demonstrations, progress presentations, and technical documentation.
+
+Suggested One-Paragraph Progress Report
+The interactive UI for the Battery Data Visualizer has been significantly improved. The application now supports CSV loading, synthetic data generation, plot selection, time-range filtering, and a live summary dashboard. In addition, an Export Data feature was added so the user can generate a structured HTML report using MATLAB's publish function. These changes make the interface more complete, easier to use, and better suited for both analysis and presentation.

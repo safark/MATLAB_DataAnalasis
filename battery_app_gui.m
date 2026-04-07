@@ -1,17 +1,4 @@
 function battery_app_gui
-% BATTERY_APP_GUI Functional prototype for battery data visualization.
-% Week 4 deliverables:
-%   - SOC / Voltage / Current / Temperature vs time plotting
-%   - basic time-range selection
-% Week 5 deliverables:
-%   - Load CSV button
-%   - Generate synthetic data button
-%   - Plot display area
-%   - Plot selection dropdown
-% Week 6 deliverables:
-%   - Battery summary dashboard panel
-%   - Min/max voltage, max temperature, average current
-%   - SOC start/end metrics for the displayed time range
 
 dataTable = table();
 textColor = [0.00, 0.00, 0.00];
@@ -175,9 +162,17 @@ socEndValueLabel = uilabel(summaryPanel, ...
 
 statusLabel = uilabel(fig, ...
     "Text", "Ready.", ...
-    "Position", [20, 30, 1074, 30], ...
+    "Position", [20, 30, 950, 30], ...
     "HorizontalAlignment", "left", ...
     "FontColor", textColor);
+
+exportButton = uibutton(fig, "push", ...
+    "Text", "Export Data", ...
+    "Position", [984, 25, 110, 32], ...
+    "BackgroundColor", buttonColor, ...
+    "FontColor", buttonTextColor, ...
+    "Enable", "off", ...
+    "ButtonPushedFcn", @onExportData);
 
 tryLoadDefaultSample();
 
@@ -192,6 +187,7 @@ tryLoadDefaultSample();
             dataTable = normalize_battery_table(loadedTable);
             syncTimeControlsToData();
             updatePlot();
+            exportButton.Enable = "on";
             statusLabel.Text = "Loaded default sample_battery_data.csv";
         catch
             % Ignore preload errors; user can load/generate manually.
@@ -212,6 +208,7 @@ tryLoadDefaultSample();
             dataTable = normalize_battery_table(loadedTable);
             syncTimeControlsToData();
             updatePlot();
+            exportButton.Enable = "on";
             statusLabel.Text = sprintf("Loaded: %s", fullPath);
         catch ME
             uialert(fig, ME.message, "CSV Load Error");
@@ -227,10 +224,44 @@ tryLoadDefaultSample();
             dataTable = normalize_battery_table(generatedTable);
             syncTimeControlsToData();
             updatePlot();
+            exportButton.Enable = "on";
             statusLabel.Text = sprintf("Generated synthetic data: %s", outputPath);
         catch ME
             uialert(fig, ME.message, "Generation Error");
             statusLabel.Text = "Synthetic data generation failed.";
+        end
+    end
+
+    function onExportData(~, ~)
+        if isempty(dataTable)
+            uialert(fig, "Load or generate battery data before exporting.", "No Data");
+            statusLabel.Text = "No data available to export.";
+            return;
+        end
+
+        defaultFileName = sprintf( ...
+            "battery_report_%s.html", ...
+            datestr(now, "yyyymmdd_HHMMSS"));
+        [fileName, filePath] = uiputfile("*.html", "Save Battery Report", defaultFileName);
+        if isequal(fileName, 0)
+            statusLabel.Text = "Report export canceled.";
+            return;
+        end
+
+        statusLabel.Text = "Generating published battery report...";
+        drawnow;
+
+        try
+            selectedRange = [startTimeField.Value, endTimeField.Value];
+            reportPath = export_battery_report( ...
+                dataTable, ...
+                selectedRange, ...
+                fullfile(filePath, fileName));
+            statusLabel.Text = sprintf("Report exported: %s", reportPath);
+            uialert(fig, sprintf("Report saved to:\n%s", reportPath), "Export Complete");
+        catch ME
+            uialert(fig, ME.message, "Export Error");
+            statusLabel.Text = "Report export failed.";
         end
     end
 
@@ -304,25 +335,16 @@ tryLoadDefaultSample();
             return;
         end
 
-        mask = (dataTable.Time_s >= appliedRange(1)) & ...
-               (dataTable.Time_s <= appliedRange(2));
-
-        if ~any(mask)
-            mask = true(height(dataTable), 1);
-            appliedRange = [dataTable.Time_s(1), dataTable.Time_s(end)];
-        end
-
-        displayedData = dataTable(mask, :);
-
+        summary = summarize_battery_data(dataTable, appliedRange);
         summaryRangeLabel.Text = sprintf( ...
             "Displayed Range: %.1f s to %.1f s", ...
-            appliedRange(1), appliedRange(2));
-        minVoltageValueLabel.Text = sprintf("%.2f V", min(displayedData.PackVoltage_V));
-        maxVoltageValueLabel.Text = sprintf("%.2f V", max(displayedData.PackVoltage_V));
-        maxTemperatureValueLabel.Text = sprintf("%.2f C", max(displayedData.Temperature_C));
-        avgCurrentValueLabel.Text = sprintf("%.2f A", mean(displayedData.Current_A));
-        socStartValueLabel.Text = sprintf("%.2f %%", displayedData.SOC_pct(1));
-        socEndValueLabel.Text = sprintf("%.2f %%", displayedData.SOC_pct(end));
+            summary.AppliedRange_s(1), summary.AppliedRange_s(2));
+        minVoltageValueLabel.Text = sprintf("%.2f V", summary.MinVoltage_V);
+        maxVoltageValueLabel.Text = sprintf("%.2f V", summary.MaxVoltage_V);
+        maxTemperatureValueLabel.Text = sprintf("%.2f C", summary.MaxTemperature_C);
+        avgCurrentValueLabel.Text = sprintf("%.2f A", summary.AverageCurrent_A);
+        socStartValueLabel.Text = sprintf("%.2f %%", summary.SOCStart_pct);
+        socEndValueLabel.Text = sprintf("%.2f %%", summary.SOCEnd_pct);
     end
 
     function resetSummaryMetrics

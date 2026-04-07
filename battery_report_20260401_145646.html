@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>battery_report_20260401_145646</title>
+<meta name="generator" content="MATLAB 25.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2026-04-01">
+<meta name="DC.source" content="battery_report_20260401_145646.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Battery Data Report</a>
+</li>
+<li>
+<a href="#2">Summary</a>
+</li>
+<li>
+<a href="#3">State of Charge Plot</a>
+</li>
+<li>
+<a href="#4">Voltage Plot</a>
+</li>
+<li>
+<a href="#5">Current Plot</a>
+</li>
+<li>
+<a href="#6">Temperature Plot</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Battery Data Report</h2>
+<p>This report was generated from the Battery Data Visualizer GUI. It summarizes the selected time window and includes one labeled section for each plot.</p>
+<h2 id="2">Summary</h2>
+<p>These metrics describe the currently selected time range from the GUI.</p>
+<pre class="codeoutput">Report generated: 01-Apr-2026 14:56:51
+Displayed range: 0.0 s to 7200.0 s (duration: 7200.0 s)
+Samples in range: 7201
+Voltage: min 338.73 V, max 373.86 V, average 358.04 V
+Current: min -43.03 A, max 63.07 A, average 0.41 A
+Temperature: min 25.07 C, max 268.69 C, average 135.92 C
+SOC: start 60.00 %, end 59.17 %, delta -0.83 %
+</pre>
+<h2 id="3">State of Charge Plot</h2>
+<p>State of charge over the selected time range.</p>
+<pre class="codeoutput">SOC started at 60.00 % and ended at 59.17 %.
+</pre>
+<img vspace="5" hspace="5" src="battery_report_20260401_145646_01.png" alt=""> <h2 id="4">Voltage Plot</h2>
+<p>Pack voltage behavior over the selected time range.</p>
+<pre class="codeoutput">Voltage ranged from 338.73 V to 373.86 V with an average of 358.04 V.
+</pre>
+<img vspace="5" hspace="5" src="battery_report_20260401_145646_02.png" alt=""> <h2 id="5">Current Plot</h2>
+<p>Pack current behavior over the selected time range.</p>
+<pre class="codeoutput">Current ranged from -43.03 A to 63.07 A with an average of 0.41 A.
+</pre>
+<img vspace="5" hspace="5" src="battery_report_20260401_145646_03.png" alt=""> <h2 id="6">Temperature Plot</h2>
+<p>Battery temperature over the selected time range.</p>
+<pre class="codeoutput">Temperature ranged from 25.07 C to 268.69 C with an average of 135.92 C.
+</pre>
+<img vspace="5" hspace="5" src="battery_report_20260401_145646_04.png" alt=""> <p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Battery Data Report
+% This report was generated from the Battery Data Visualizer GUI.
+% It summarizes the selected time window and includes one labeled section for each plot.
+
+load('C:\Users\Safar\AppData\Local\Temp\tp1f17a757_1e26_45ce_8ff5_8343ecd867a8\battery_report_context.mat', 'dataTable', 'timeRange_s', 'projectRoot');
+addpath('C:\Users\Safar\Downloads\MATLAB_DataAnalasis');
+summary = summarize_battery_data(dataTable, timeRange_s);
+
+%% Summary
+% These metrics describe the currently selected time range from the GUI.
+fprintf('Report generated: %s\n', datestr(now, 0));
+fprintf('Displayed range: %.1f s to %.1f s (duration: %.1f s)\n', summary.AppliedRange_s(1), summary.AppliedRange_s(2), summary.Duration_s);
+fprintf('Samples in range: %d\n', summary.SampleCount);
+fprintf('Voltage: min %.2f V, max %.2f V, average %.2f V\n', summary.MinVoltage_V, summary.MaxVoltage_V, summary.AverageVoltage_V);
+fprintf('Current: min %.2f A, max %.2f A, average %.2f A\n', summary.MinCurrent_A, summary.MaxCurrent_A, summary.AverageCurrent_A);
+fprintf('Temperature: min %.2f C, max %.2f C, average %.2f C\n', summary.MinTemperature_C, summary.MaxTemperature_C, summary.AverageTemperature_C);
+fprintf('SOC: start %.2f %%, end %.2f %%, delta %.2f %%\n', summary.SOCStart_pct, summary.SOCEnd_pct, summary.SOCDelta_pct);
+
+%% State of Charge Plot
+% State of charge over the selected time range.
+figure('Color', 'w', 'Position', [100, 100, 900, 420]);
+ax = axes('Parent', gcf);
+battery_visualization(ax, dataTable, "SOC vs Time", summary.AppliedRange_s);
+fprintf('SOC started at %.2f %% and ended at %.2f %%.\n', summary.SOCStart_pct, summary.SOCEnd_pct);
+
+%% Voltage Plot
+% Pack voltage behavior over the selected time range.
+figure('Color', 'w', 'Position', [100, 100, 900, 420]);
+ax = axes('Parent', gcf);
+battery_visualization(ax, dataTable, "Voltage vs Time", summary.AppliedRange_s);
+fprintf('Voltage ranged from %.2f V to %.2f V with an average of %.2f V.\n', summary.MinVoltage_V, summary.MaxVoltage_V, summary.AverageVoltage_V);
+
+%% Current Plot
+% Pack current behavior over the selected time range.
+figure('Color', 'w', 'Position', [100, 100, 900, 420]);
+ax = axes('Parent', gcf);
+battery_visualization(ax, dataTable, "Current vs Time", summary.AppliedRange_s);
+fprintf('Current ranged from %.2f A to %.2f A with an average of %.2f A.\n', summary.MinCurrent_A, summary.MaxCurrent_A, summary.AverageCurrent_A);
+
+%% Temperature Plot
+% Battery temperature over the selected time range.
+figure('Color', 'w', 'Position', [100, 100, 900, 420]);
+ax = axes('Parent', gcf);
+battery_visualization(ax, dataTable, "Temperature vs Time", summary.AppliedRange_s);
+fprintf('Temperature ranged from %.2f C to %.2f C with an average of %.2f C.\n', summary.MinTemperature_C, summary.MaxTemperature_C, summary.AverageTemperature_C);
+
+##### SOURCE END #####
+-->
+</body>
+</html>
